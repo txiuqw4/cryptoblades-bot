@@ -8,16 +8,6 @@ const Web3 = require('web3')
 const rpcURL = "https://bsc-dataseed1.binance.org/"
 const web3 = new Web3(rpcURL)
 
-const Tx = require('ethereumjs-tx')
-
-const userSettings = require('./userSettings.json')
-
-const options = require('./options.json')
-
-const { accounts, privateKeys } = userSettings
-
-const { OPTIMIZE_STAMINA, MIN_CHANCE, PREFERRED_CHANCE, CLAIM_EXP  } = options
-
 const gameAddress = '0x39Bea96e13453Ed52A734B6ACEeD4c41F57B2271'
 const weaponAddress = '0x7e091b0a220356b157131c831258a9c98ac8031a'
 const characterAddress = '0xc6f252c2CdD4087e30608A35c022ce490B58179b'
