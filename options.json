@@ -1,0 +1,5 @@
+{
+    "MIN_STAMINA_COST_PER_FIGHT": 160,
+    "MIN_CHANCE": 96,
+    "CLAIM_EXP": true
+}

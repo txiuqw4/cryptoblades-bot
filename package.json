@@ -1,0 +1,16 @@
+{
+  "name": "cryptoblades",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cryptoBladesBot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "BatCoder <batcoder.white@gmail.com> (https://github.com/BatCoderDefi)",
+  "license": "ISC",
+  "dependencies": {
+    "ethereumjs-tx": "^1.3.7",
+    "express": "^4.17.1",
+    "web3": "^1.5.0"
+  }
+}

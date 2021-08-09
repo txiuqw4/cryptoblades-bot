@@ -1,0 +1,4 @@
+node_modules/
+accounts.json
+test.*
+cryptoBladesAutoFight.js
