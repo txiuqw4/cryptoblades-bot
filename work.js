@@ -85,12 +85,12 @@ async function work() {
                 data[pos].characters[idx].totalLosses += 1
             }
 
-            sleep(2000)
+            await sleep(2000)
 
             claimExp = claimExp || await checkExperienceToClaim(character)
         }
 
-        sleep(50000)
+        await sleep(50000)
         if (CLAIM_EXP && claimExp) {
             console.log('claim exp of account ', account.wallet)
             claimXpRewards(account.wallet, account.key)
