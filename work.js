@@ -10,22 +10,6 @@ const data = accounts.map(r => ({
 
 let lastCheck = new Date()
 
-async function load() {
-    console.log('loading')
-
-    for(const account of accounts) {
-        let characters = await gameContract.methods.getMyCharacters().call( { from: account.wallet } )
-        const idx = data.findIndex(r => r.wallet === account.wallet)
-
-        data[idx].characters = characters.map(r => ({
-            id: r,
-            totalWins: 0,
-            totalLosses: 0,
-            skillEarned: 0
-        }))
-    }
-}
-
 async function sleep(ms) {
     return new Promise(r => setTimeout(r, ms))
 }
@@ -46,7 +30,16 @@ async function work() {
         for(const character of characters) {
             console.log('Checking character ', character)
             let idx = data[pos].characters.findIndex(r => r.id === character)
+            if (idx === -1) {
+                data[pos].characters.push({
+                    id: character,
+                    totalWins: 0,
+                    totalLosses: 0,
+                    skillEarned: 0
+                })
 
+                idx = data[pos].characters.length - 1
+            }
 
             let stamina = Number(await characterContract.methods.getStaminaPoints(character).call())
 
@@ -90,7 +83,7 @@ async function work() {
             claimExp = claimExp || await checkExperienceToClaim(character)
         }
 
-        await sleep(50000)
+        await sleep(5000)
         if (CLAIM_EXP && claimExp) {
             console.log('claim exp of account ', account.wallet)
             claimXpRewards(account.wallet, account.key)
@@ -100,8 +93,6 @@ async function work() {
     console.log('wait ', delay, 's to next check')
     setTimeout(work, delay * 1000)
 }
-
-load()
 
 module.exports = {
     data,
