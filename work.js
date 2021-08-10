@@ -8,14 +8,18 @@ const data = accounts.map(r => ({
     'characters': []
 }))
 
-let lastCheck = new Date()
+const information = {
+    combats: [],
+    remainSeconds: 0,
+    foughtAt: null,
+    updatedAt: null
+}
 
 async function sleep(ms) {
     return new Promise(r => setTimeout(r, ms))
 }
 
 async function work() {
-    lastCheck = new Date()
     let delay = 48000; // 800 minutes
     const SECONDS_PER_STAMINA = await characterContract.methods.secondsPerStamina().call()
 
@@ -78,6 +82,15 @@ async function work() {
                 data[pos].characters[idx].totalLosses += 1
             }
 
+            information.foughtAt = new Date()
+            information.combats.push({
+                createdAt: new Date(),
+                skillEarned: result.skillEarned > 0 ? result.skillGain / 1e18 : 0,
+                character: character,
+                winChance: m.finalWinChance,
+                wallet: account.wallet
+            })
+
             await sleep(2000)
 
             claimExp = claimExp || await checkExperienceToClaim(character)
@@ -90,6 +103,8 @@ async function work() {
         }
     }
 
+    information.remainSeconds = delay
+    information.updatedAt = new Date()
     console.log('wait ', delay, 's to next check')
     setTimeout(work, delay * 1000)
 }
@@ -97,5 +112,5 @@ async function work() {
 module.exports = {
     data,
     work,
-    lastCheck
+    information
 }
