@@ -85,7 +85,7 @@ async function work() {
             information.foughtAt = new Date()
             information.combats.push({
                 createdAt: new Date(),
-                skillEarned: result.skillEarned > 0 ? result.skillGain / 1e18 : 0,
+                skillEarned: result.skillGain > 0 ? result.skillGain / 1e18 : 0,
                 character: character,
                 winChance: m.finalWinChance,
                 wallet: account.wallet
